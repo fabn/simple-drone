@@ -2,5 +2,7 @@ FROM busybox
 
 WORKDIR /app
 ADD .drone.yml .
+# simulate a long running command
+RUN sleep 120
 
 RUN echo `date` > current-date.txt
