@@ -1,0 +1,67 @@
+kind: pipeline
+name: docker-backend
+
+steps:
+  - name: docker-build-backend
+    image: plugins/docker
+    settings:
+      repo: fabn/drone
+      tags: latest
+      cache_from:
+        - "fabn/drone:lastest"
+        - "fabn/drone:${DRONE_BRANCH}"
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+
+---
+kind: pipeline
+name: docker-test
+
+steps:
+  - name: docker-build-test
+    image: plugins/docker
+    settings:
+      dockerfile: Dockerfile_test
+      repo: fabn/drone
+      tags:
+        - "${DRONE_BRANCH}"
+        - "${DRONE_BRANCH}-${DRONE_COMMIT}"
+      cache_from:
+        - "fabn/drone:lastest"
+        - "fabn/drone:${DRONE_BRANCH}"
+      username:
+        from_secret: DOCKER_USERNAME
+      password:
+        from_secret: DOCKER_PASSWORD
+
+---
+kind: pipeline
+name: cat-test
+
+steps:
+  - name: simple-cat
+    image: fabn/drone:${DRONE_BRANCH}
+    commands:
+      - cat current-date.txt
+
+depends_on:
+  - docker-test
+
+---
+kind: pipeline
+name: foo-test
+
+steps:
+  - name: simple-echo
+    image: fabn/drone:${DRONE_BRANCH}
+    environment:
+      RAILS_ENV: test
+    commands:
+      - echo ${RAILS_ENV}
+      - pwd
+      - ls
+
+depends_on:
+  - docker-test

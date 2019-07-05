@@ -1,0 +1,6 @@
+FROM busybox
+
+WORKDIR /app
+ADD .drone.yml .
+
+RUN echo `date` > current-date.txt
