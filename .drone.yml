@@ -62,7 +62,7 @@ steps:
     commands:
       - cd /app
       - env
-      - echo ${RAILS_ENV}
+      - echo $RAILS_ENV
       - pwd
       - ls
 
