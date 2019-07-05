@@ -8,7 +8,7 @@ steps:
       repo: fabn/drone
       tags: latest
       cache_from:
-        - "fabn/drone:lastest"
+        - "fabn/drone:latest"
         - "fabn/drone:${DRONE_BRANCH}"
       username:
         from_secret: DOCKER_USERNAME
@@ -29,7 +29,7 @@ steps:
         - "${DRONE_BRANCH}"
         - "${DRONE_BRANCH}-${DRONE_COMMIT}"
       cache_from:
-        - "fabn/drone:lastest"
+        - "fabn/drone:latest"
         - "fabn/drone:${DRONE_BRANCH}"
       username:
         from_secret: DOCKER_USERNAME
