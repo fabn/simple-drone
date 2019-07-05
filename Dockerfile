@@ -1,4 +1,4 @@
-FROM hello-world
+FROM busybox
 
 # simulate a long running command
 RUN sleep 120
