@@ -2,6 +2,7 @@
 kind: pipeline
 name: print-env
 
+# Push a new commit to compare
 steps:
   - name: dump-env
     image: busybox
