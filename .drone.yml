@@ -5,6 +5,9 @@ name: rancher-deploy2
 steps:
   - name: rancher-deploy
     image: fabn/rancher-deploy
+
+image_pull_secrets:
+  - dockerconfigjson
     
 ---
 kind: pipeline
