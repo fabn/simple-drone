@@ -61,7 +61,7 @@ depends_on:
   
 ---
 kind: pipeline
-name: rancher-deploy
+name: rancher-direct-deploy
 
 steps:
   - name: Feature Deploy ${DRONE_SOURCE_BRANCH}
