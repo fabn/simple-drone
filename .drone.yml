@@ -1,16 +1,5 @@
 ---
 kind: pipeline
-name: print-env
-
-# Push a new commit to compare
-steps:
-  - name: dump-env
-    image: busybox
-    commands:
-      - env
-
----
-kind: pipeline
 name: docker-backend
 
 steps:
@@ -21,7 +10,7 @@ steps:
       tags: latest
       cache_from:
         - "fabn/drone:latest"
-        - "fabn/drone:${DRONE_BRANCH}"
+        - "fabn/drone:${DRONE_SOURCE_BRANCH}"
       username:
         from_secret: DOCKER_USERNAME
       password:
@@ -38,11 +27,11 @@ steps:
       dockerfile: Dockerfile_test
       repo: fabn/drone
       tags:
-        - "${DRONE_BRANCH}"
-        - "${DRONE_BRANCH}-${DRONE_COMMIT}"
+        - "${DRONE_SOURCE_BRANCH}"
+        - "${DRONE_SOURCE_BRANCH}-${DRONE_COMMIT}"
       cache_from:
         - "fabn/drone:latest"
-        - "fabn/drone:${DRONE_BRANCH}"
+        - "fabn/drone:${DRONE_SOURCE_BRANCH}"
       username:
         from_secret: DOCKER_USERNAME
       password:
@@ -54,7 +43,7 @@ name: cat-test
 
 steps:
   - name: simple-cat
-    image: fabn/drone:${DRONE_BRANCH}
+    image: fabn/drone:${DRONE_SOURCE_BRANCH}
     commands:
       - cd /app
       - cat current-date.txt
@@ -68,7 +57,7 @@ name: foo-test
 
 steps:
   - name: simple-echo
-    image: fabn/drone:${DRONE_BRANCH}
+    image: fabn/drone:${DRONE_SOURCE_BRANCH}
     environment:
       RAILS_ENV: test
     commands:
