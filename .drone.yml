@@ -1,3 +1,14 @@
+---
+kind: pipeline
+name: print-env
+
+steps:
+  - name: dump-env
+    image: busybox
+    commands:
+      - env
+
+---
 kind: pipeline
 name: docker-backend
 
