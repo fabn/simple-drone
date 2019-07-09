@@ -57,7 +57,51 @@ steps:
       - ls
 
 depends_on:
-  - build-docker-image 
+  - build-docker-image
+  
+---
+kind: pipeline
+name: rancher-deploy
+
+steps:
+  - name: Feature Deploy ${DRONE_SOURCE_BRANCH}
+    image: busybox
+    commands:
+      - echo "Deploying feature on xxx"
+depends_on:
+  - build-docker-image
+
+# When in feature branches deploy without waiting for tests
+trigger:
+  branch:
+    exclude:
+      - master
+      - develop
+  event:
+    exclude:
+      - tag
+
+---
+kind: pipeline
+name: rancher-deploy
+
+steps:
+  - name: ENV Deploy ${DRONE_SOURCE_BRANCH}
+    image: busybox
+    commands:
+      - echo "Deploying on xxx after tests"
+
+depends_on:
+  - rubocop
+  - rspec
+
+# When in master, develop or tags it will deploy only after test completion
+trigger:
+  branch:
+   - master
+   - develop
+  event:
+    - tag
 
 ---
 kind: pipeline
