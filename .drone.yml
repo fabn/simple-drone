@@ -1,5 +1,13 @@
 ---
 kind: pipeline
+name: rancher-deploy2
+
+steps:
+  - name: rancher-deploy
+    image: fabn/rancher-deploy
+    
+---
+kind: pipeline
 name: notify-pipeline-start
 
 steps:
