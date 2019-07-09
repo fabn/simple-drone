@@ -80,3 +80,14 @@ steps:
 depends_on:
   - docker-test
 
+---
+kind: pipeline
+name: always-do
+
+steps:
+  - name: dump-env
+    image: busybox
+    commands:
+      - echo "Hello World"
+
+
