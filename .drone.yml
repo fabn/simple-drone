@@ -7,6 +7,7 @@ steps:
     image: busybox
     commands:
       - echo "Hello World"
+      - env
 
 # When in master, develop or tags it will deploy only after test completion
 trigger:
@@ -25,6 +26,7 @@ steps:
     image: busybox
     commands:
       - echo "Hello World"
+      - env
 
 # When in master, develop or tags it will deploy only after test completion
 trigger:
