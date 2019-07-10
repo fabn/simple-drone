@@ -1,5 +1,21 @@
 ---
 kind: pipeline
+name: rancher-deploy
+
+steps:
+  - name: rancher-deploy
+    image: uala/drone-rancher-deploy
+    settings:
+      config: k8s-envs.yml
+      dry_run: true
+    environment:
+      RANCHER_ACCESS_KEY:
+        from_secret: RANCHER_ACCESS_KEY
+      RANCHER_SECRET_KEY:
+        from_secret: RANCHER_SECRET_KEY
+
+---
+kind: pipeline
 name: deploy-after-test
 
 steps:
