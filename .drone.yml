@@ -24,6 +24,15 @@ name: deploy-with-test
 steps:
   - name: deploy
     image: busybox
+    environment:
+      RANCHER_ACCESS_KEY:
+        from_secret: RANCHER_ACCESS_KEY
+      RANCHER_SECRET_KEY:
+        from_secret: RANCHER_SECRET_KEY
+      RANCHER_ACCESS_KEY_ENV:
+        from_secret: RANCHER_ACCESS_KEY
+      RANCHER_SECRET_KEY_ENV:
+        from_secret: RANCHER_SECRET_KEY
     commands:
       - echo "Hello World"
       - env
