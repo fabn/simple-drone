@@ -26,6 +26,16 @@ steps:
     commands:
       - echo "Hello World"
 
+# When in master, develop or tags it will deploy only after test completion
+trigger:
+  branch:
+    exclude:
+      - master
+      - develop
+  event:
+    exclude:
+      - tag
+
 ---
 kind: pipeline
 name: notify-pipeline-end
