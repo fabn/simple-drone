@@ -6,6 +6,7 @@ steps:
   - name: Dump git environment
     image: docker:git
     commands:
+      - env
       - git rev-parse --abbrev-ref HEAD
       - git branch -a
       - git describe --all
