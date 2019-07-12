@@ -3,6 +3,12 @@ kind: pipeline
 name: rancher-deploy
 
 steps:
+  - name: Dump git environment
+    image: docker:git
+    commands:
+      - git rev-parse --abbrev-ref HEAD
+      - git branch -a
+      - git describe --all
   - name: rancher-deploy
     image: uala/drone-rancher-deploy
     settings:
