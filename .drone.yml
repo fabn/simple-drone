@@ -8,14 +8,6 @@ steps:
     commands:
       - env
       - git fetch --all
-  - name: Check tag is on master
-    image: uala/drone-rancher-deploy
-    settings:
-      action: tag_check
-      enforce_branch_for_tag: master
-    when:
-      event:
-        - tag
   - name: Dump git environment
     image: docker:git
     commands:
@@ -25,6 +17,21 @@ steps:
       - git rev-parse --abbrev-ref HEAD
       - git branch -a
       - git describe --all
+  - name: Dump commands
+    image: docker:git
+    commands:
+      - git branch -a --contains $DRONE_TAG
+    when:
+      event:
+        - tag
+  - name: Check tag is on master
+    image: uala/drone-rancher-deploy
+    settings:
+      action: tag_check
+      enforce_branch_for_tag: master
+    when:
+      event:
+        - tag
   - name: rancher-deploy
     image: uala/drone-rancher-deploy
     settings:
