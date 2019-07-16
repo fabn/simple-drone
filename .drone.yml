@@ -7,6 +7,8 @@ steps:
     image: docker:git
     commands:
       - env
+      - ls -la .git
+      - git remote -v
       - git rev-parse --abbrev-ref HEAD
       - git branch -a
       - git describe --all
