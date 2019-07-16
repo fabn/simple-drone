@@ -3,12 +3,12 @@ kind: pipeline
 name: rancher-deploy
 
 steps:
-  - name: check-master-tag
+  - name: Fetch full git repo
     image: docker:git
     commands:
       - env
       - git fetch --all
-  - name: Dump git environment
+  - name: Check tag is on master
     image: uala/drone-rancher-deploy
     settings:
       action: tag_check
