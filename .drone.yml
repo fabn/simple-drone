@@ -6,7 +6,6 @@ steps:
   - name: Fetch full git repo
     image: docker:git
     commands:
-      - env
       - git fetch --all
   - name: Dump git environment
     image: docker:git
@@ -29,6 +28,7 @@ steps:
     settings:
       action: tag_check
       enforce_branch_for_tag: master
+      fetch: true
     when:
       event:
         - tag
