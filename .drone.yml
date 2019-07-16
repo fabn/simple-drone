@@ -3,11 +3,23 @@ kind: pipeline
 name: rancher-deploy
 
 steps:
-  - name: Dump git environment
+  - name: check-master-tag
     image: docker:git
     commands:
       - env
       - git fetch --all
+  - name: Dump git environment
+    image: uala/drone-rancher-deploy
+    settings:
+      action: tag_check
+      enforce_branch_for_tag: master
+    when:
+      event:
+        - tag
+  - name: Dump git environment
+    image: docker:git
+    commands:
+      - env
       - ls -la .git
       - git remote -v
       - git rev-parse --abbrev-ref HEAD
