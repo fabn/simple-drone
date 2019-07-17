@@ -3,6 +3,14 @@ kind: pipeline
 name: rancher-deploy
 
 steps:
+  - name: Dump filesystem
+    image: debian:8.3
+    commands:
+      - apt-get update
+      - apt-get install tree -y
+      - pwd
+      - tree
+      - tree -a ~
   - name: Fetch full git repo
     image: docker:git
     commands:
