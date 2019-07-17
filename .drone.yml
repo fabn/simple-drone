@@ -16,6 +16,7 @@ steps:
     commands:
       - git remote -v
       - git fetch --all
+      - ssh -vv git@github.com
   - name: Dump git environment
     image: docker:git
     commands:
