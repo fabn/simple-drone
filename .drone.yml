@@ -3,43 +3,13 @@ kind: pipeline
 name: rancher-deploy
 
 steps:
-  - name: Dump filesystem
-    image: debian:8.3
-    commands:
-      - apt-get update
-      - apt-get install tree -y
-      - pwd
-      - tree
-      - tree -a ~
-  - name: Fetch full git repo
-    image: docker:git
-    commands:
-      - env
-      - git remote -v
-      - git fetch --all
-      - ssh -vv git@github.com
-  - name: Dump git environment
-    image: docker:git
-    commands:
-      - env
-      - ls -la .git
-      - git remote -v
-      - git rev-parse --abbrev-ref HEAD
-      - git branch -a
-      - git describe --all
-  - name: Dump commands
-    image: docker:git
-    commands:
-      - git branch -a --contains $DRONE_TAG
-    when:
-      event:
-        - tag
   - name: Check tag is on master
     image: uala/drone-rancher-deploy
     settings:
       action: tag_check
       enforce_branch_for_tag: master
       fetch: true
+      logging: debug
     when:
       event:
         - tag
